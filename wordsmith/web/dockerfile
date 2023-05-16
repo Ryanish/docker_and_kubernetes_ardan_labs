@@ -1,0 +1,19 @@
+# This is a web server written in Go. To compile Go code, we can use the golang official image, or install Go packages in any of the official base images.
+FROM golang
+
+# The entire code is in a single source file (dispatcher.go), and should be compiled like this:
+
+COPY . .
+
+RUN go build dispatcher.go
+# This creates an executable named dispatcher, which should be launched like this:
+
+CMD ["./dispatcher"]
+# Listening on port 80
+# The web server needs to access the static directory. This directory must be a subdirectory of the current working directory when the server is started.
+
+# Additional information:
+
+
+# the server listens on port 80
+# the Go compiler is only useful to build the server (not to run it)

@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  web:
+    build: web
+    ports:
+      - 6500:80
+    volumes:
+      - ./web/static:/go/static
+
+  words:
+    build: words
+    ports:
+      - 6501:8080
+  db:
+    build: db
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust

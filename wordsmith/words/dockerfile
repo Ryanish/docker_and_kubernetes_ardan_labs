@@ -1,0 +1,31 @@
+# This is a REST API backend written in Java. It should be built with maven.
+# On a Debian or Ubuntu distribution, we can install Java and maven like this:
+
+FROM ubuntu
+RUN apt-get update -y \
+    && apt-get install maven openjdk-8-jdk -y
+
+WORKDIR /app
+
+COPY pom.xml .
+RUN mvn verify
+# To build the program, we can invoke maven like this:
+
+#this is always important. COPY src dest - dot dot is basically from here to here. Take everything here and put it in the container.
+COPY . . 
+
+RUN mvn verify
+
+# The result is a file named words.jar, located in the target directory.
+
+# The server should be started by running the following command, in the directory where words.jar is located:
+WORKDIR target
+CMD exec java -Xmx8m -Xms8m -jar words.jar
+
+# Additional information:
+
+# the server listens on port 8080
+# compilation requires packages maven and openjdk-8-jdk
+# execution requires package openjdk-8-jdk (maven is not necessary)
+
+
